@@ -155,10 +155,10 @@ Sub Calendario2025_Cadiz_Imagen()
 
     Dim leyendaRow As Integer
     leyendaRow = 41
-    ws.Cells(leyendaRow, 5).Value = "■"
+    ws.Cells(leyendaRow, 5).Value = "¦"
     ws.Cells(leyendaRow, 5).Font.Color = vbRed
     ws.Cells(leyendaRow, 6).Value = "FESTIVOS GENERALES"
-    ws.Cells(leyendaRow, 9).Value = "■"
+    ws.Cells(leyendaRow, 9).Value = "¦"
     ws.Cells(leyendaRow, 9).Font.Color = RGB(0, 0, 192)
     ws.Cells(leyendaRow, 10).Value = "NO LABORABLES EN DEMAGRISA"
     ws.Range(ws.Cells(leyendaRow, 5), ws.Cells(leyendaRow, 12)).Font.Size = 11
@@ -176,7 +176,7 @@ Function IsInArray(val As String, arr As Variant) As Boolean
     IsInArray = False
 End Function
 
-' ========== TURNOS CON VACACIONES (1-15 SEPTIEMBRE) ================
+' ========== TURNOS CON CABECERA CORRECTA Y CICLO QUE CAMBIA EL 28/07/2025 ================
 Sub GenerarTurnosCicloAvanzado()
     Dim ws As Worksheet
     Dim fecha As Date, fechaInicio As Date, fechaFin As Date
@@ -200,89 +200,81 @@ Sub GenerarTurnosCicloAvanzado()
 
     fechaInicio = DateSerial(2025, 6, 5)
     fechaFin = DateSerial(2025, 12, 31)
-    cicloCambio = DateSerial(2025, 7, 28)
+    cicloCambio = DateSerial(2025, 7, 28) ' Cambio el 28/07/2025
     row = 2
 
     For fecha = fechaInicio To fechaFin
-        ' Vacaciones del 1 al 15 de septiembre de 2025
-        If fecha >= DateSerial(2025, 9, 1) And fecha <= DateSerial(2025, 9, 15) Then
-            For i = 1 To 5: turnos(i) = "VACACIONES": Next i
-            horario = "VACACIONES"
-            observacion = "VACACIONES"
-            tipoTurno = "VACACIONES"
+        diaSemana = Weekday(fecha, vbMonday) ' Lunes=1, Domingo=7
+        For i = 1 To 5: turnos(i) = "-": Next i
+        horario = ""
+        observacion = ""
+        tipoTurno = ""
+
+        If fecha < cicloCambio Then
+            tipoTurno = "fin de semana"
+            Select Case diaSemana
+                Case 1, 2 ' Lunes, Martes
+                    turnos(1) = "-"    ' Carmelo
+                    turnos(2) = "-"    ' María
+                    turnos(3) = "-"    ' José
+                    turnos(4) = "08:00–00:00" ' Ángela
+                    turnos(5) = "08:00–00:00" ' Luisito
+                    observacion = "Descansan Carmelo, María y José"
+                Case 3 ' Miércoles
+                    turnos(1) = "-"    ' Carmelo
+                    turnos(2) = "-"    ' María
+                    turnos(3) = "08:00–00:00" ' José
+                    turnos(4) = "08:00–17:00" ' Ángela
+                    turnos(5) = "08:00–17:00" ' Luisito
+                Case 4, 5 ' Jueves y Viernes
+                    turnos(1) = "17:00–00:00" ' Carmelo
+                    turnos(2) = "17:00–00:00" ' María
+                    turnos(3) = "08:00–00:00"  ' José
+                    turnos(4) = "08:00–17:00"  ' Ángela
+                    turnos(5) = "08:00–17:00"  ' Luisito
+                Case 6, 7 ' Sábado y Domingo
+                    turnos(1) = "09:00–00:00" ' Carmelo
+                    turnos(2) = "09:00–00:00" ' María
+                    turnos(3) = "09:00–00:00" ' José
+                    turnos(4) = "-"           ' Ángela
+                    turnos(5) = "-"           ' Luisito
+            End Select
         Else
-            diaSemana = Weekday(fecha, vbMonday)
-            For i = 1 To 5: turnos(i) = "-": Next i
-            horario = ""
-            observacion = ""
-            tipoTurno = ""
-
-            If fecha < cicloCambio Then
-                tipoTurno = "fin de semana"
-                Select Case diaSemana
-                    Case 1, 2
-                        turnos(1) = "-"
-                        turnos(2) = "-"
-                        turnos(3) = "-"
-                        turnos(4) = "08:00–00:00"
-                        turnos(5) = "08:00–00:00"
-                        observacion = "Descansan Carmelo, María y José"
-                    Case 3
-                        turnos(1) = "-"
-                        turnos(2) = "-"
-                        turnos(3) = "08:00–00:00"
-                        turnos(4) = "08:00–17:00"
-                        turnos(5) = "08:00–17:00"
-                    Case 4, 5
-                        turnos(1) = "17:00–00:00"
-                        turnos(2) = "17:00–00:00"
-                        turnos(3) = "08:00–00:00"
-                        turnos(4) = "08:00–17:00"
-                        turnos(5) = "08:00–17:00"
-                    Case 6, 7
-                        turnos(1) = "09:00–00:00"
-                        turnos(2) = "09:00–00:00"
-                        turnos(3) = "09:00–00:00"
-                        turnos(4) = "-"
-                        turnos(5) = "-"
-                End Select
-            Else
-                tipoTurno = "semanal"
-                Select Case diaSemana
-                    Case 1, 2
-                        turnos(1) = "08:00–00:00"
-                        turnos(2) = "08:00–00:00"
-                        turnos(3) = "08:00–00:00"
-                        turnos(4) = "-"
-                        turnos(5) = "-"
-                    Case 3
-                        turnos(1) = "-"
-                        turnos(2) = "-"
-                        turnos(3) = "08:00–00:00"
-                        turnos(4) = "08:00–17:00"
-                        turnos(5) = "08:00–17:00"
-                    Case 4, 5
-                        turnos(1) = "17:00–00:00"
-                        turnos(2) = "17:00–00:00"
-                        turnos(3) = "08:00–00:00"
-                        turnos(4) = "08:00–17:00"
-                        turnos(5) = "08:00–17:00"
-                    Case 6, 7
-                        turnos(1) = "-"
-                        turnos(2) = "-"
-                        turnos(3) = "-"
-                        turnos(4) = "09:00–00:00"
-                        turnos(5) = "09:00–00:00"
-                End Select
-            End If
-
-            For i = 1 To 5
-                If turnos(i) <> "-" Then
-                    If horario <> "" Then horario = horario & " | "
-                    horario = horario & empleados(i - 1) & ": " & turnos(i)
-                End If
-            Next i
+            tipoTurno = "semanal"
+            Select Case diaSemana
+                Case 1, 2 ' Lunes, Martes
+                    turnos(1) = "08:00–00:00" ' Carmelo
+                    turnos(2) = "08:00–00:00" ' María
+                    turnos(3) = "08:00–00:00" ' José
+                    turnos(4) = "-"           ' Ángela
+                    turnos(5) = "-"           ' Luisito
+                Case 3 ' Miércoles
+                    turnos(1) = "-"           ' Carmelo
+                    turnos(2) = "-"           ' María
+                    turnos(3) = "08:00–00:00" ' José
+                    turnos(4) = "08:00–17:00" ' Ángela
+                    turnos(5) = "08:00–17:00" ' Luisito
+                Case 4, 5 ' Jueves y Viernes
+                    turnos(1) = "17:00–00:00" ' Carmelo
+                    turnos(2) = "17:00–00:00" ' María
+                    turnos(3) = "08:00–00:00" ' José
+                    turnos(4) = "08:00–17:00" ' Ángela
+                    turnos(5) = "08:00–17:00" ' Luisito
+                Case 6, 7 ' Sábado y Domingo
+                    turnos(1) = "-"           ' Carmelo
+                    turnos(2) = "-"           ' María
+                    turnos(3) = "-"           ' José
+                    turnos(4) = "09:00–00:00" ' Ángela
+                    turnos(5) = "09:00–00:00" ' Luisito
+            End Select
         End If
+
+        For i = 1 To 5
+            If turnos(i) <> "-" Then
+                If horario <> "" Then horario = horario & " | "
+                horario = horario & empleados(i - 1) & ": " & turnos(i)
+            End If
+        Next i
 
         ws.Cells(row, 1).Value = fecha
         ws.Cells(row, 2).Value = Format(fecha, "dddd")
@@ -297,10 +289,10 @@ Sub GenerarTurnosCicloAvanzado()
     Next fecha
 
     ws.Columns("A:I").AutoFit
-    MsgBox "¡Turnos generados correctamente según tus reglas y vacaciones!"
+    MsgBox "¡Turnos generados correctamente según tus reglas!"
 End Sub
 
-' ========== RESUMEN DE GANANCIAS POR SEMANA ================
+' ========== RESUMEN DE GANANCIAS POR SEMANA (CORREGIDO) ================
 Sub GenerarTurnosYResumenGanancias()
     Dim wsTurnos As Worksheet
     Set wsTurnos = ThisWorkbook.Worksheets("Turnos")
@@ -329,9 +321,7 @@ Sub GenerarTurnosYResumenGanancias()
     Dim turnoCarmelo As String, turnoMaria As String, turnoJose As String, turnoAngela As String, turnoLuisito As String
     Dim semanaKey As Variant
 
-    lastRow = wsTurnos.Cells(wsTurnos.Rows.Count, 1).End(xlUp).Row
-
-    carmelo = 0: maria = 0: jose = 0: angela = 0: luisito = 0
+    lastRow = wsTurnos.Cells(wsTurnos.Rows.Count, 1).End(xlUp).row
 
     For row = 2 To lastRow
         fecha = wsTurnos.Cells(row, 1).Value
@@ -396,4 +386,6 @@ Sub GenerarTodo()
     Call Calendario2025_Cadiz_Imagen
     Call GenerarTurnosCicloAvanzado
     Call GenerarTurnosYResumenGanancias
+    Call GraficaTurnos
+    Call GraficaGanancias
 End Sub
