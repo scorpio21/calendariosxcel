@@ -1,75 +1,74 @@
-# Calendario y Turnos 2025
+# 📅 Sistema Integral de Calendario y Turnos 2025
 
-Este repositorio contiene un sistema automatizado en VBA para la gestión de:
-
-- Calendario anual 2025 (con festivos, domingos y leyenda explicativa)
-- Turnos de empleados con cambio de ciclo en julio
-- Resumen semanal de ganancias por empleado y totales
-- Gráficas automáticas de turnos y ganancias
-- Todo ejecutable desde un solo botón en Excel
+Este repositorio proporciona una solución completa y automatizada en **VBA para Excel** para la gestión anual de calendario, turnos de personal, cálculo de ganancias y generación de informes visuales.
 
 ---
 
-## ¿Qué incluye?
+## ✨ Características principales
 
-1. **Calendario 2025**  
-   - Festivos autonómicos/locales destacados en celeste y con nombre bajo el número.
-   - Domingos resaltados en rojo claro.
-   - Días no laborables en azul.
-   - Leyenda completa con explicación de colores y listado de todos los festivos.
+- **📆 Calendario 2025 automatizado**
+  - Visualización mensual compacta.
+  - Días festivos nacionales, autonómicos y locales resaltados en celeste, con el nombre bajo el número.
+  - Domingos destacados en rojo claro.
+  - Días no laborables resaltados en azul.
+  - Leyenda clara y detallada con explicación de colores y lista de todos los festivos.
 
-2. **Turnos**  
-   - Turnos diarios de 5 empleados, con reglas y ciclo que cambia el 28 de julio.
-   - Hoja de turnos con detalle diario y observaciones.
+- **👥 Gestión avanzada de turnos**
+  - Asignación diaria para 5 empleados con reglas personalizadas.
+  - Ciclo de turnos configurable y cambio automático en verano (a partir del 28 de julio).
+  - Hoja dedicada con turnos diarios, horarios y observaciones.
 
-3. **Resumen de Ganancias**  
-   - Cálculo automático de ganancias semanales por empleado y totales.
+- **💰 Resumen de ganancias**
+  - Cálculo automático de ganancias semanales por empleado y totales.
+  - Visualización clara de la información financiera semanal.
 
-4. **Gráficas automáticas**  
-   - Turnos por empleado (barras).
-   - Ganancias semanales (línea).
+- **📊 Informes y gráficos automáticos**
+  - Gráfica de turnos por empleado (barras).
+  - Gráfica de evolución de ganancias semanales (línea).
 
-5. **Macro principal**  
-   - Puedes ejecutar todo con la macro `GenerarTodo`.
+- **⚡ Automatización total**
+  - Ejecución integral mediante el macro principal `GenerarTodo`, ideal para asociar a un botón en Excel.
 
 ---
 
-## Instalación y uso
+## 🚀 Instalación y uso
 
-1. **Importa el módulo VBA**  
-   - Abre Excel y pulsa `Alt+F11` para entrar al editor VBA.
-   - Menú: `Archivo > Importar archivo...` y selecciona `CalendarioTurnos2025.bas`.
+1. **Importa el módulo VBA**
+   - Abre Excel y presiona `Alt+F11` para acceder al editor VBA.
+   - Ve a `Archivo > Importar archivo...` y selecciona `CalendarioTurnos2025.bas`.
 
-2. **Asigna la macro principal a un botón**  
-   - En Excel, inserta un botón de formulario.
+2. **Vincula el macro principal a un botón**
+   - Inserta un botón de formulario en cualquier hoja de Excel.
    - Haz clic derecho sobre el botón y selecciona "Asignar macro...".
    - Elige la macro `GenerarTodo`.
 
-3. **Pulsa el botón y listo**  
-   - El sistema generará todo automáticamente: calendario, turnos, resumen y gráficas.
+3. **Ejecuta**
+   - Al pulsar el botón, se generarán automáticamente: el calendario anual, la hoja de turnos, el resumen de ganancias y las gráficas.
 
 ---
 
-## Personalización
+## ⚙️ Personalización
 
-- Puedes modificar la lista de festivos o empleados directamente en el módulo `.bas`.
-- Para otros años, solo cambia la lógica de fechas y festivos.
-
----
-
-## Requisitos
-
-- Microsoft Excel para Windows (VBA habilitado)
-- No requiere complementos externos
+- **Festivos y empleados:** Puedes editar fácilmente las listas de festivos y los nombres de empleados en el módulo VBA para adaptarlo a tus necesidades.
+- **Reglas de turnos:** El sistema está diseñado para ser fácilmente modificable en cuanto a reglas y ciclos de turnos.
 
 ---
 
-## Créditos
+## 🖥️ Requisitos
 
-Desarrollado por [scorpio21](https://github.com/scorpio21) con ayuda de GitHub Copilot.
+- Microsoft Excel para Windows (con soporte para VBA)
+- No requiere complementos adicionales
 
 ---
 
-## Licencia
+## 🙌 Créditos
 
-MIT License
+Desarrollado por [scorpio21](https://github.com/scorpio21), con el apoyo de GitHub Copilot.
+
+---
+
+## 📄 Licencia
+
+Este proyecto se distribuye bajo la licencia MIT. Consulta el archivo [LICENSE.md](LICENSE.md) para más detalles.
+
+---
